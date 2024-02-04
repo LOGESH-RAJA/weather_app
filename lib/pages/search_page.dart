@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:weather_app/models/weather_models.dart';
 import 'package:weather_app/models/weather_service.dart';
@@ -28,7 +29,7 @@ class _SearchState extends State<Search> {
   @override
   void initState() {
     super.initState();
-    _service = WeatherService("abcc0a2644344fb9b84ce5959696a3be");
+    _service = WeatherService(apiKey: "abcc0a2644344fb9b84ce5959696a3be",httpClient: http.Client());
     _serachWeatherPage = const WeatherPage();
   }
 

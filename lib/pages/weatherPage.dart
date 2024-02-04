@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter/material.dart';
 import 'package:weather_app/models/weather_models.dart';
 import 'package:weather_app/models/weather_service.dart';
@@ -12,12 +15,12 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
-  final _weatherService = WeatherService("abcc0a2644344fb9b84ce5959696a3be");
+  final _weatherService = WeatherService(apiKey: "abcc0a2644344fb9b84ce5959696a3be",httpClient: http.Client());
 
   Weather? _weather;
   Weather? _searchWeather;
 
- void _updateSearchWeather(Weather newWeather) {
+  void _updateSearchWeather(Weather newWeather) {
     setState(() {
       _searchWeather = newWeather;
     });
@@ -49,17 +52,14 @@ class _WeatherPageState extends State<WeatherPage> {
     setState(() {
       _currentIndex = index;
       if (index == 0) {
-       setState(() {
-         
-       });
+        setState(() {});
       }
     });
   }
-  
+
   void navigateBottom(int index) {
     setState(() {
       _currentIndex = index;
-      
     });
   }
 
@@ -70,7 +70,10 @@ class _WeatherPageState extends State<WeatherPage> {
         weather: _searchWeather ?? _weather,
         onIndexChanged: updateCurrentIndex,
       ),
-      Search(onUpdateIndex: updateCurrentIndex, onUpdateSearchWeather: _updateSearchWeather,)
+      Search(
+        onUpdateIndex: updateCurrentIndex,
+        onUpdateSearchWeather: _updateSearchWeather,
+      )
     ];
 
     return Scaffold(
@@ -83,16 +86,15 @@ class _WeatherPageState extends State<WeatherPage> {
         elevation: 0.0,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home,
-            color: Colors.amber,),
+            icon: Icon(
+              Icons.home,
+              color: Colors.amber,
+            ),
             label: 'Home',
-            
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search,
-            color: Colors.amber),
+            icon: Icon(Icons.search, color: Colors.amber),
             label: 'Search',
-            
           ),
         ],
       ),
